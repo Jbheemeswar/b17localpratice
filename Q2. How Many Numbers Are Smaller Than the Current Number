@@ -1,0 +1,17 @@
+class Solution:
+    def smallerNumbersThanCurrent(self, nums: list[int]) -> list[int]:
+        # Step 1: Count the frequency of each number
+        count = [0] * 101
+        for num in nums:
+            count[num] += 1
+            
+        # Step 2: Transform the count array into a prefix sum array
+        # count[i] will now store how many numbers are strictly less than i
+        current_sum = 0
+        for i in range(101):
+            temp = count[i]
+            count[i] = current_sum
+            current_sum += temp
+            
+        # Step 3: Build the result array using the prefix sums
+        return [count[num] for num in nums]
